@@ -65,7 +65,6 @@ const material = {
 
 
 function App() {
-
   const layers = [
     new HexagonLayer({
       id: 'heatmap',
