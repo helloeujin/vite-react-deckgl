@@ -11,6 +11,7 @@
   height: 100vh;
   left: 0px;
   top: 0px;
-  background-color: #111;
+  background-color: rgb(18, 35, 48);
+  /* background-color: #111; */
   /* border: 1px solid red; */
 }

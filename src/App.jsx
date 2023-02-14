@@ -1,5 +1,11 @@
 import { useState } from 'react'
 import {AmbientLight, PointLight, LightingEffect} from '@deck.gl/core';
+import {
+  ScatterplotLayer,
+  SolidPolygonLayer,
+  GeoJsonLayer,
+  ArcLayer,
+} from "@deck.gl/layers";
 import {HexagonLayer} from '@deck.gl/aggregation-layers';
 
 import DeckGL from '@deck.gl/react';
@@ -13,6 +19,10 @@ import './App.css'
 const DATA_URL =
   'https://raw.githubusercontent.com/visgl/deck.gl-data/master/examples/3d-heatmap/heatmap-data.csv'; // eslint-disable-line
 // const MAP_STYLE = 'https://basemaps.cartocdn.com/gl/dark-matter-nolabels-gl-style/style.json';
+
+// source: Natural Earth http://www.naturalearthdata.com/ via geojson.xyz
+const WORLD =
+  "https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_50m_admin_0_scale_rank.geojson"; //eslint-disable-line
 
 const rawData = await load(DATA_URL, CSVLoader);
 const data = rawData.map(d => [d.lng, d.lat])
@@ -66,6 +76,16 @@ const material = {
 
 function App() {
   const layers = [
+    new GeoJsonLayer({
+      id: "base-world",
+      data: WORLD,
+      // Styles
+      stroked: true,
+      filled: true,
+      lineWidthMinPixels: 0.5,
+      getLineColor: [8,17,29],
+      getFillColor: [8,17,29],
+    }),
     new HexagonLayer({
       id: 'heatmap',
       colorRange: colorRange,
